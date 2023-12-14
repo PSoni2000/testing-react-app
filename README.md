@@ -1,70 +1,59 @@
-# Getting Started with Create React App
+## Language / Library Used
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+1. React JS
+2. Jest
 
-## Available Scripts
+# NOTES:
 
-In the project directory, you can run:
+**npm test - to run unit testing.**
 
-### `npm start`
+to write a test file we should use **.test.js** extension.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Writing test case
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. use 'test('unit test name', ()=>{ //actual testing code })' function which is globally available.
+2. Writing tests - the three "A"s
+   **Arrange -** Set up the test data, test conditions and test environment.
+   **Act -** Run logic that should be tested (eg, execute function).
+   **Assert -** Compare execution results with expected results.
 
-### `npm test`
+   ```
+    import { render, screen } from "@testing-library/react";
+    import Greeting from "./Greeting";
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    test("renders Hello World as a text", () => {
+        // Arrange
+        render(<Greeting />);
 
-### `npm run build`
+        // Act
+        // ... nothing here
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+        // Assert
+        const helloWorldElement = screen.getByText("Hello World!");
+        expect(helloWorldElement).toBeInTheDocument();
+    });
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   here screen gives us access to a virtual screen to this virtual DOM, which was rendered.
+   for screen we get various function available -
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   1. get function - throw an error if an element is not found
+   2. query function - wont throw an error if an element is not found
+   3. find function - will return a promise
 
-### `npm run eject`
+3. Assertion -
+   to check whether the element exist. for this we got the globally available **expect** function.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   1. **.toBeInTheDocument -** checks whether the the html element we expect here is in the document.
+   2. **.not** - its a prefix to check opposite condition.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Test suites
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+As your application grows we typically have hundreds of test cases and to organize and group those different tests we often organize them into different testing suites
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+To create testing suites we use 'describe()' function which is globally available
 
-## Learn More
+describe takes two arguments -
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. description
+2. anonymous function which contains unit tests under this test suites.
